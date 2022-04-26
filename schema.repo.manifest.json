@@ -1,0 +1,57 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "type": "object",
+  "title": "Repository manifest schema",
+  "description": "Root repository manifest",
+  "definitions": {
+    "GooVersionPattern": {
+      "type": "string",
+      "pattern": "^(\\d\\.){2}\\d$",
+      "examples": [
+        "0.4.2",
+        "2.6.6",
+        "4.9.1"
+      ]
+    },
+    "Deprecated": {
+      "title": "Deprecation",
+      "description": "Identify this manifest as deprecated",
+      "type": "object",
+      "properties": {
+        "reason": {},
+        "alternatives": {
+          "title": "Alternative solution",
+          "description": "point to alternative solution while deprecation identify",
+          "type": "string"
+        },
+        "removed": {
+          "$ref": "#/definitions/GooVersionPattern",
+          "title": "Goo Version",
+          "description": "Specific semantic Goo version. Identified when manifest will be disabled."
+        }
+      },
+      "required": [
+        "reason"
+      ]
+    }
+  },
+  "properties": {
+    "name": {
+      "title": "Repository Display Name",
+      "description": "Repository displayable name",
+      "type": "string"
+    },
+    "supports_since": {
+      "$ref": "#/definitions/GooVersionPattern",
+      "title": "Goo Version",
+      "description": "Specific semantic Goo version. Identified when this manifest supports."
+    },
+    "deprecated": {
+      "$ref": "#/definitions/Deprecated"
+    }
+  },
+  "required": [
+    "name",
+    "supports_since"
+  ]
+}

@@ -1,0 +1,52 @@
+project_name: goo
+before:
+  hooks:
+    - go mod tidy
+    - go generate ./...
+builds:
+  - id: goo
+    mod_timestamp: '{{ .Timestamp }}'
+    binary: 'bin/goo_{{ .Target }}'
+    env:
+      - CGO_ENABLED=0
+    no_unique_dist_dir: true
+    ldflags:
+      - -X github.com/stachu540/goo/internal.Version={{ .Version }}
+      - -X github.com/stachu540/goo/internal.Timestamp={{ .Timestamp }}
+      - -X github.com/stachu540/goo/internal.Revision={{ .ShortCommit }}
+      - -X github.com/stachu540/goo/internal.CoreRepoSlug=goo-app/package-core
+      - -X github.com/stachu540/goo/internal.ProjectRepoSlug=goo-app/cli
+    goos:
+      - linux
+      - windows
+      - darwin
+checksum:
+  name_template: 'checksums.txt'
+changelog:
+  sort: asc
+  use: github
+  groups:
+    - title: Features
+      regexp: '^feat(\(\w+\))?:.+$'
+      order: 0
+    - title: Bugs Fixed
+      regexp: '^(fix|bugfix)(\(\w+\))?:.+$'
+      order: 1
+    - title: Internal Changes
+      regexp: '^chore(\(\w+\))?:.+$'
+      order: 2
+    - title: Documentation
+      regexp: '^docs(\(\w+\))?:.+$'
+      order: 3
+    - title: Dependencies
+      regexp: '^deps(\(\w+\))?:.+$'
+      order: 4
+  filters:
+    exclude:
+      - '\[skip-log\]'
+announce:
+  discord:
+    enabled: true
+    message_template: 'New Release **{{ .Tag }}** is out: {{ .ReleaseURL }}'
+    author: 'Goo Release'
+    icon_url: ''

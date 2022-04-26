@@ -1,0 +1,203 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "type": "object",
+  "title": "Application package schema",
+  "description": "Root application package",
+  "definitions": {
+    "URL": {
+      "name": "Url Pattern",
+      "description": "Url pattern like string",
+      "type": "string",
+      "format": "url",
+      "minLength": 1
+    },
+    "GooVersionPattern": {
+      "type": "string",
+      "pattern": "^(\\d\\.){2}\\d$",
+      "minLength": 5,
+      "maxLength": 5,
+      "examples": [
+        "0.4.2",
+        "2.6.6",
+        "4.9.1"
+      ]
+    },
+    "Deprecated": {
+      "title": "Deprecation",
+      "description": "Identify this manifest as deprecated",
+      "type": "object",
+      "properties": {
+        "reason": {
+          "title": "Deprecation reason",
+          "description": "The reason for deprecation",
+          "type": "string"
+        },
+        "alternatives": {
+          "title": "Alternative solution",
+          "description": "point to alternative solution while deprecation identify",
+          "type": "string"
+        },
+        "removed": {
+          "$ref": "#/definitions/GooVersionPattern",
+          "title": "Goo Version",
+          "description": "Specific semantic Goo version. Identified when manifest will be disabled."
+        }
+      },
+      "required": [
+        "reason"
+      ]
+    },
+    "License": {
+      "title": "Application License",
+      "description": "Identify this product with the license",
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "url": {
+          "$ref": "#/definitions/URL"
+        }
+      },
+      "required": [
+        "name", "url"
+      ]
+    },
+    "ActionScripts": {
+      "name": "Shell Action Scripts",
+      "description": "Each actions specified for installing, updating and uninstalling, before, and after them.",
+      "type": "object",
+      "properties": {
+        "pre_install": {
+          "$ref": "#/definitions/ActionScript"
+        },
+        "post_install": {
+          "$ref": "#/definitions/ActionScript"
+        },
+        "pre_update": {
+          "$ref": "#/definitions/ActionScript"
+        },
+        "post_update": {
+          "$ref": "#/definitions/ActionScript"
+        },
+        "pre_uninstall": {
+          "$ref": "#/definitions/ActionScript"
+        },
+        "post_uninstall": {
+          "$ref": "#/definitions/ActionScript"
+        }
+      }
+    },
+    "ActionScript": {
+      "name": "Shell Action Script",
+      "description": "List of shell commands for specific action",
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string"
+      }
+    },
+    "UpdateScheme": {
+      "name": "Updates scheme",
+      "description": "Scheme of updates",
+      "type": "object",
+      "properties": {
+        "type": {
+          "title": "Update type",
+          "description": "Specified update type when will pulling download link.",
+          "type": "string",
+          "enum": [
+            "html",
+            "json",
+            "xml",
+            "github"
+          ]
+        },
+        "url": {
+          "$ref": "#/definitions/URL"
+        },
+        "pattern": {
+          "title": "Update Pattern",
+          "description": "Pattern specified for update `type` It uses Go templates, XPath specification (`json` and `xml` only) and Regular Expression by specific types (`html` only).",
+          "type": "string"
+        },
+        "version_pattern": {
+          "title": "Update Version Pattern",
+          "description": "Regular expression version pattern.",
+          "type": "string",
+          "default": "^[v]?(\\d+\\.)+\\d(-.+)?$",
+          "examples": [
+            "^v(\\d+\\.)+\\d$",
+            "^(\\d+\\.)+\\d$",
+            "^(\\d+\\.)+\\d-\\w$"
+          ]
+        }
+      },
+      "required": [
+        "type",
+        "url",
+        "pattern"
+      ]
+    },
+    "OsArchAppender": {
+      "title": "OS/Arch Appender",
+      "description": "Append OS or/and Architecture namings when was default",
+      "type": "object",
+      "properties": {
+        "windows": {
+          "type": "string"
+        },
+        "linux": {
+          "type": "string"
+        },
+        "macos": {
+          "type": "string"
+        },
+        "386": {
+          "type": "string"
+        },
+        "amd64": {
+          "type": "string"
+        },
+        "arm64": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": true
+    }
+  },
+  "properties": {
+    "description": {
+      "description": "Precisely application description.",
+      "title": "Application Description",
+      "type": "string"
+    },
+    "homepage": {
+      "$ref": "#/definitions/URL",
+      "description": "URL based application website.",
+      "title": "Application Homepage"
+    },
+    "license": {
+      "$ref": "#/definitions/License"
+    },
+    "deprecated": {
+      "$ref": "#/definitions/Deprecated"
+    },
+    "actions": {
+      "$ref": "#/definitions/ActionScripts"
+    },
+    "updates": {
+      "$ref": "#/definitions/UpdateScheme"
+    },
+    "appendix": {
+      "$ref": "#/definitions/OsArchAppender"
+    }
+  },
+  "required": [
+    "description",
+    "homepage",
+    "license",
+    "updates"
+  ]
+}
