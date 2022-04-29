@@ -2,6 +2,10 @@
 <img src="manifest/goo.png" width="256" alt="logo" /><br />
 </p>
 
+[![example workflow](https://github.com/goo-app/cli/actions/workflows/test.yml/badge.svg)](https://github.com/goo-app/cli/actions/workflows/test.yml)
+[![example workflow](https://github.com/goo-app/cli/actions/workflows/releaser.yml/badge.svg)](https://github.com/goo-app/cli/actions/workflows/releaser.yml)
+[![Go Report Card](https://goreportcard.com/badge/github.com/goo-app/cli)](https://goreportcard.com/report/github.com/goo-app/cli)
+
 # Goo
 
 New Cross-Platform command line installer
