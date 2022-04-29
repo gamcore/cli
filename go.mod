@@ -1,4 +1,4 @@
-module github.com/stachu540/goo
+module github.com/goo-app/cli
 
 go 1.18
 
