@@ -1,36 +1,35 @@
-package log
+package logger
 
 import "strings"
 
 type Level int
 
 const (
-	Trace Level = iota
-	Debug
-	Info
-	Warn
-	Error
-	Panic
-	Fatal
+	LevelTrace Level = iota
+	LevelDebug
+	LevelInfo
+	LevelWarn
+	LevelError
+	LevelPanic
 )
 
 func OfLevel(level string) Level {
-	lvl := Info
+	lvl := LevelInfo
 	switch strings.ToLower(level) {
 	case "trace":
-		lvl = Trace
+		lvl = LevelTrace
 		break
 	case "debug":
-		lvl = Debug
+		lvl = LevelDebug
 		break
 	case "info":
-		lvl = Info
+		lvl = LevelInfo
 		break
 	case "warn":
-		lvl = Warn
+		lvl = LevelWarn
 		break
 	case "error":
-		lvl = Error
+		lvl = LevelError
 		break
 	}
 
@@ -40,26 +39,24 @@ func OfLevel(level string) Level {
 func (l Level) String() string {
 	lvl := "<none>"
 	switch l {
-	case Trace:
+	case LevelTrace:
 		lvl = "trace"
 		break
-	case Debug:
+	case LevelDebug:
 		lvl = "debug"
 		break
-	case Info:
+	case LevelInfo:
 		lvl = "info"
 		break
-	case Warn:
+	case LevelWarn:
 		lvl = "warn"
 		break
-	case Error:
+	case LevelError:
 		lvl = "error"
 		break
-	case Panic:
+	case LevelPanic:
 		lvl = "panic"
 		break
-	case Fatal:
-		lvl = "fatal"
 	}
 
 	return lvl
