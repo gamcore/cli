@@ -2,8 +2,8 @@ package cmd
 
 import (
 	"fmt"
+	"github.com/goo-app/cli/internal"
 	"github.com/spf13/cobra"
-	"github.com/stachu540/goo/internal"
 	"net/url"
 )
 
@@ -45,7 +45,7 @@ func doAddRepo(_ *cobra.Command, argv []string) error {
 	return internal.AddRepository(name, gitUrl)
 }
 
-func doDelRepo(cmd *cobra.Command, argv []string) error {
+func doDelRepo(_ *cobra.Command, argv []string) error {
 	name := argv[0]
 	return internal.RemoveRepository(name)
 }

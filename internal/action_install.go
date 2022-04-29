@@ -1,6 +1,6 @@
 package internal
 
-import "github.com/stachu540/goo/internal/logger"
+import "github.com/goo-app/cli/internal/logger"
 
 func Install(apps ...string) error {
 	toInstall := GetApplications().Fetch(apps...)

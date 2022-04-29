@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/go-git/go-git/v5"
-	"github.com/stachu540/goo/internal/utils"
+	"github.com/goo-app/cli/internal/utils"
 	"gopkg.in/yaml.v2"
 	"os"
 	"path"

@@ -17,7 +17,7 @@ function MkDirIfNotExist([string[]]$paths) {
 }
 
 function Download {
-  $latest = iwr -UseBasicParsing -Headers @{"Accept"="application/vnd.github.v3+json"} -Uri "https://api.github.com/repos/stachu540/goo/releases/latest"
+  $latest = iwr -UseBasicParsing -Headers @{"Accept"="application/vnd.github.v3+json"} -Uri "https://api.github.com/repos/goo-app/cli/releases/latest"
   $file = $($($latest | ConvertFrom-Json).assets | where { $_.name -match "^$GOO_NAME$" }).browser_download_url
   Invoke-WebRequest -Uri $file -OutFile "$GOO_PATH/apps/goo/current/goo.exe"
 }
@@ -60,7 +60,7 @@ function InstallWindows {
 }
 
 function InstallOtherOS {
-  Invoke-Expression -Command "bash <(curl -s https://raw.githubusercontent.com/stachu540/goo/main/install.sh)"
+  Invoke-Expression -Command "bash <(curl -s https://raw.githubusercontent.com/goo-app/cli/main/install.sh)"
 }
 
 $GOO_PATH = if (($GooPath -eq "") -or ($GooPath -eq $null)) {

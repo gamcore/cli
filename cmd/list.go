@@ -1,11 +1,11 @@
 package cmd
 
 import (
+	"github.com/goo-app/cli/internal"
+	"github.com/goo-app/cli/internal/logger"
+	"github.com/goo-app/cli/internal/utils"
 	"github.com/pterm/pterm"
 	"github.com/spf13/cobra"
-	"github.com/stachu540/goo/internal"
-	"github.com/stachu540/goo/internal/logger"
-	"github.com/stachu540/goo/internal/utils"
 )
 
 var (

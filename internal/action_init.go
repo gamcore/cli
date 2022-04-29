@@ -2,8 +2,8 @@ package internal
 
 import (
 	"fmt"
-	"github.com/stachu540/goo/internal/logger"
-	"github.com/stachu540/goo/internal/utils"
+	"github.com/goo-app/cli/internal/logger"
+	"github.com/goo-app/cli/internal/utils"
 	"os"
 	"path"
 )

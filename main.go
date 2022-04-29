@@ -1,6 +1,6 @@
 package main
 
-import "github.com/stachu540/goo/cmd"
+import "github.com/goo-app/cli/cmd"
 
 func main() {
 	cmd.Run()

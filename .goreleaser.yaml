@@ -11,11 +11,11 @@ builds:
       - CGO_ENABLED=0
     no_unique_dist_dir: true
     ldflags:
-      - -X github.com/stachu540/goo/internal.Version={{ .Version }}
-      - -X github.com/stachu540/goo/internal.Timestamp={{ .Timestamp }}
-      - -X github.com/stachu540/goo/internal.Revision={{ .ShortCommit }}
-      - -X github.com/stachu540/goo/internal.CoreRepoSlug=goo-app/package-core
-      - -X github.com/stachu540/goo/internal.ProjectRepoSlug=goo-app/cli
+      - -X github.com/goo-app/cli/internal.Version={{ .Version }}
+      - -X github.com/goo-app/cli/internal.Timestamp={{ .Timestamp }}
+      - -X github.com/goo-app/cli/internal.Revision={{ .ShortCommit }}
+      - -X github.com/goo-app/cli/internal.CoreRepoSlug=goo-app/package-core
+      - -X github.com/goo-app/cli/internal.ProjectRepoSlug=goo-app/cli
     goos:
       - linux
       - windows

@@ -2,7 +2,7 @@ package internal
 
 import (
 	"github.com/go-git/go-git/v5"
-	"github.com/stachu540/goo/internal/logger"
+	"github.com/goo-app/cli/internal/logger"
 	"os"
 	"path"
 )

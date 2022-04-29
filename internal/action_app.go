@@ -2,7 +2,7 @@ package internal
 
 import (
 	"fmt"
-	"github.com/stachu540/goo/internal/utils"
+	"github.com/goo-app/cli/internal/utils"
 	"strings"
 )
 

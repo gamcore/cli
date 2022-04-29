@@ -1,8 +1,8 @@
 package cmd
 
 import (
+	"github.com/goo-app/cli/internal"
 	"github.com/spf13/cobra"
-	"github.com/stachu540/goo/internal"
 )
 
 var (

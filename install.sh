@@ -16,7 +16,7 @@ MkDirIfNotExist() {
 }
 
 Download() {
-  GOO_DOWNLOAD_URL="$(curl -H "Accept: application/vnd.github.v3+json" -s https://api.github.com/repos/stachu540/goo/releases/latest | grep "browser_download_url.*${GOO_NAME}" | cut -d : -f 2,3 | tr -d \")"
+  GOO_DOWNLOAD_URL="$(curl -H "Accept: application/vnd.github.v3+json" -s https://api.github.com/repos/goo-app/cli/releases/latest | grep "browser_download_url.*${GOO_NAME}" | cut -d : -f 2,3 | tr -d \")"
   curl -o "${GOO_PATH}/apps/goo/current/goo" "$GOO_DOWNLOAD_URL"
 }
 
