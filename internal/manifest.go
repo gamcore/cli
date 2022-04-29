@@ -91,24 +91,21 @@ func (t UpdateType) MarshalJSON() ([]byte, error) {
 }
 
 func (t *UpdateType) UnmarshalJSON(data []byte) error {
-	var ut UpdateType
 	switch string(data) {
 	case "html":
-		ut = UpdateHTML
+		*t = UpdateHTML
 		break
 	case "xml":
-		ut = UpdateXML
+		*t = UpdateXML
 		break
 	case "json":
-		ut = UpdateJSON
+		*t = UpdateJSON
 		break
 	case "github":
-		ut = UpdateGitHub
+		*t = UpdateGitHub
 	default:
 		return fmt.Errorf(`unknown update type "%s", supports: "html", "xml", "json" and "github"`, string(data))
 	}
-
-	t = &ut
 
 	return nil
 }
