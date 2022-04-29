@@ -27,24 +27,8 @@ func AnySlice[T any](slice []T, predicate func(T) bool) bool {
 	return false
 }
 
-func AllSlice[T any](slice []T, predicate func(T) bool) bool {
-	for _, t := range slice {
-		if !predicate(t) {
-			return false
-		}
-	}
-
-	return true
-}
-
 func NoneSlice[T any](slice []T, predicate func(T) bool) bool {
-	for _, t := range slice {
-		if predicate(t) {
-			return false
-		}
-	}
-
-	return true
+	return !AnySlice[T](slice, predicate)
 }
 
 func MapSlice[T any, R any](slice []T, mapper func(T) R) []R {
