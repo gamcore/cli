@@ -21,6 +21,6 @@ func init() {
 	root.AddCommand(initCmd)
 }
 
-func doInit(cmd *cobra.Command, argv []string) error {
+func doInit(_ *cobra.Command, _ []string) error {
 	return internal.Init(force)
 }

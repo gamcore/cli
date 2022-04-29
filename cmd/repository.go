@@ -5,7 +5,6 @@ import (
 	"github.com/spf13/cobra"
 	"github.com/stachu540/goo/internal"
 	"net/url"
-	"os"
 )
 
 var (
@@ -48,12 +47,5 @@ func doAddRepo(_ *cobra.Command, argv []string) error {
 
 func doDelRepo(cmd *cobra.Command, argv []string) error {
 	name := argv[0]
-
-	for _, r := range internal.GetRepositories() {
-		if r.Name == name {
-			return os.RemoveAll(r.Path())
-		}
-	}
-
-	return internal.ErrRepositoryNotExist
+	return internal.RemoveRepository(name)
 }

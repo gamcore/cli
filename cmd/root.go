@@ -3,8 +3,9 @@ package cmd
 import (
 	"github.com/spf13/cobra"
 	"github.com/stachu540/goo/internal"
-	"github.com/stachu540/goo/internal/log"
+	"github.com/stachu540/goo/internal/logger"
 	"github.com/stachu540/goo/internal/utils"
+	"os"
 )
 
 var (
@@ -14,8 +15,17 @@ var (
 		CompletionOptions: cobra.CompletionOptions{
 			HiddenDefaultCmd: true,
 		},
-		Long:    `Manage your developer applications with cross-platform application installer`,
-		PreRunE: doCheck,
+		Long:              `Manage your developer applications with cross-platform application installer`,
+		PersistentPreRunE: doCheck,
+		PersistentPostRunE: func(cmd *cobra.Command, args []string) error {
+			err := logger.Close()
+
+			if err == os.ErrInvalid {
+				return nil
+			}
+
+			return err
+		},
 	}
 )
 
@@ -27,19 +37,19 @@ func init() {
 
 func Run() {
 	if err := root.Execute(); err != nil {
-		internal.Logger.Fatalf("%s", err)
+		logger.Errorf("%s", err)
 	}
 }
 
 func doCheck(cmd *cobra.Command, argv []string) error {
 	rawLevel := cmd.PersistentFlags().StringP("log", "l", "info", "Logging level [debug, info, warn, error] default: info")
-	level := log.Info
+	level := logger.LevelInfo
 	if utils.AnySlice([]string{"debug", "info", "warn", "error"}, func(l string) bool { return *rawLevel == l }) {
-		level = log.OfLevel(*rawLevel)
+		level = logger.OfLevel(*rawLevel)
 	}
 	debug := cmd.PersistentFlags().BoolP("debug", "d", false, "Debug mode")
 	if *debug {
-		level = log.Debug
+		level = logger.LevelDebug
 	}
 
 	err := internal.Setup(level)
