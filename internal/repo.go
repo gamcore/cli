@@ -23,31 +23,31 @@ func Read(gpath string, basename string) (*Repository, error) {
 	rpath := path.Join(gpath, "repos", basename)
 	manifestFile := utils.GetFirstFileExtFilter(rpath, "manifest", "json", "yml", "yaml")
 	if manifestFile == "" {
-		return nil, fmt.Errorf("no manifest found for", basename)
+		return nil, fmt.Errorf(`no manifest found for "%s""`, basename)
 	}
 
 	manifest := RManifest{}
 	ext := path.Ext(manifestFile)
 	data, err := os.ReadFile(manifestFile)
 	if err != nil {
-		return nil, fmt.Errorf("cannot read manifest file for", basename, err)
+		return nil, fmt.Errorf(`cannot read manifest file for "%s": %s`, basename, err)
 	}
 
 	switch strings.ToLower(ext) {
 	case "json":
 		err = json.Unmarshal(data, &manifest)
 		if err != nil {
-			return nil, fmt.Errorf("cannot parse manifest file variables for", basename, err)
+			return nil, fmt.Errorf(`cannot parse manifest file variables for "%s": %s`, basename, err)
 		}
 		break
 	case "yml", "yaml":
 		err = yaml.Unmarshal(data, &manifest)
 		if err != nil {
-			return nil, fmt.Errorf("cannot parse manifest file variables for", basename, err)
+			return nil, fmt.Errorf(`cannot parse manifest file variables for "%s": %s`, basename, err)
 		}
 		break
 	default:
-		return nil, fmt.Errorf("unsupported manifest file format for %s \"%s\"", basename, ext)
+		return nil, fmt.Errorf(`unsupported manifest file format for %s "%s"`, basename, ext)
 	}
 
 	return &Repository{

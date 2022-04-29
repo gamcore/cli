@@ -27,7 +27,7 @@ func GetRepositories() (repos Repositories) {
 		if dir.IsDir() {
 			r, err := Read(Path, dir.Name())
 			if err != nil {
-				logger.Errorf("error reading repository %s", dir.Name(), err)
+				logger.Errorf(`error reading repository %s: %s`, dir.Name(), err)
 			} else {
 				repos = append(repos, *r)
 			}
