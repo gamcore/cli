@@ -1,8 +1,9 @@
+name: Test Unit
 on:
   push:
     paths-ignore:
       - ".github/funding.yml"
-      - ".github/workflows/release.yml"
+      - ".github/workflows/releaser.yml"
       - "completion/**"
       - "manifest/**"
       - "install.sh"
@@ -13,7 +14,7 @@ on:
   pull_request:
     paths-ignore:
       - ".github/funding.yml"
-      - ".github/workflows/release.yml"
+      - ".github/workflows/releaser.yml"
       - "completion/**"
       - "manifest/**"
       - "install.sh"
@@ -23,6 +24,7 @@ on:
       - "schema.repo.manifest.json"
 jobs:
   test:
+    name: Test Unit
     strategy:
       matrix:
         os: [ ubuntu-latest, windows-latest, macos-latest ]
