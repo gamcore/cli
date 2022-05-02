@@ -27,26 +27,31 @@ changelog:
   use: github
   groups:
     - title: Features
-      regexp: '^feat(\(\w+\))?:.+$'
+      regexp: '^.*feat[(\\w)]*:+.*$'
       order: 0
     - title: Bugs Fixed
-      regexp: '^(fix|bugfix)(\(\w+\))?:.+$'
+      regexp: '^.*(fix|bugfix)[(\\w)]*:+.*$'
       order: 1
     - title: Internal Changes
-      regexp: '^chore(\(\w+\))?:.+$'
+      regexp: '^.*chore[(\\w)]*:+.*$'
       order: 2
-    - title: Documentation
-      regexp: '^docs(\(\w+\))?:.+$'
-      order: 3
     - title: Dependencies
-      regexp: '^deps(\(\w+\))?:.+$'
-      order: 4
+      regexp: '^.*deps[(\\w)]*:+.*$'
+      order: 3
+    - title: Others
+      order: 999
   filters:
     exclude:
-      - '\[skip-log\]'
+      - '^.*\[skip-log\].*$'
+      - '^.*\[skiplog\].*$'
+      - '^.*\[skip log\].*$'
+      - '^.*\[log skip\].*$'
+      - '^.*\[log-skip\].*$'
+      - '^.*\[no-log\].*$'
+      - '^.*\[no log\].*$'
 announce:
   discord:
     enabled: true
     message_template: 'New Release **{{ .Tag }}** is out: {{ .ReleaseURL }}'
-    author: 'Goo Release'
-    icon_url: ''
+    author: 'Goo Releaser'
+    icon_url: 'https://raw.githubusercontent.com/goo-app/cli/main/manifest/goo.png'

@@ -10,10 +10,9 @@ import (
 func AddRepository(name, url string) error {
 	repoPath := path.Join(Path, "repos", name)
 	if err := os.Mkdir(repoPath, os.ModeDir); os.IsNotExist(err) {
-		var out = logger.Out()
 		_, err = git.PlainClone(repoPath, false, &git.CloneOptions{
 			URL:      url,
-			Progress: out,
+			Progress: os.Stdout,
 		})
 		return err
 	}
@@ -27,7 +26,7 @@ func GetRepositories() (repos Repositories) {
 		if dir.IsDir() {
 			r, err := Read(Path, dir.Name())
 			if err != nil {
-				logger.Errorf(`error reading repository %s: %s`, dir.Name(), err)
+				logger.ErrorF(`error reading repository %s: %s`, dir.Name(), err)
 			} else {
 				repos = append(repos, *r)
 			}

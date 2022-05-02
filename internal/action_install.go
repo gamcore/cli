@@ -11,7 +11,7 @@ func Install(apps ...string) error {
 				if len(apps) == 1 {
 					return err
 				}
-				logger.Warnf(`"%s" is already installed`, a.Name)
+				logger.WarnF(`"%s" is already installed`, a.Name)
 			} else {
 				return err
 			}
