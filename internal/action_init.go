@@ -2,19 +2,23 @@ package internal
 
 import (
 	"fmt"
-	"github.com/goo-app/cli/internal/logger"
 	"github.com/goo-app/cli/internal/utils"
+	"github.com/spf13/viper"
 	"os"
 	"path"
 )
 
-func Setup(level logger.Level) error {
+func Setup() error {
 	gooPath, exist := os.LookupEnv("GOO_PATH")
 	if exist {
-		Path = gooPath
 		if _, err := os.Stat(gooPath); os.IsExist(err) {
-			logger.InitLogger(level, Path)
-			return nil
+			Path = gooPath
+			viper.SetConfigFile(path.Join(Path, "config.yaml"))
+			err = viper.ReadInConfig()
+			if err != nil {
+				return err
+			}
+			return initLogger()
 		} else {
 			return err
 		}

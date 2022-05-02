@@ -28,10 +28,10 @@ func doList(_ *cobra.Command, _ []string) {
 		name := app.Name
 		hasUpdate, err := app.HasUpdate()
 		if err != nil {
-			logger.Errorf(`could not obtain update information for "%s": %s`, name, err)
+			logger.ErrorF(`could not obtain update information for "%s": %s`, name, err)
 		} else {
 			if hasUpdate {
-				name = pterm.Bold.Sprint(name)
+				name = pterm.Italic.Sprint(name)
 			}
 		}
 		data = append(data, []string{

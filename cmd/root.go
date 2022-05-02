@@ -5,7 +5,9 @@ import (
 	"github.com/goo-app/cli/internal/logger"
 	"github.com/goo-app/cli/internal/utils"
 	"github.com/spf13/cobra"
+	"github.com/spf13/viper"
 	"os"
+	"strings"
 )
 
 var (
@@ -27,35 +29,45 @@ var (
 			return err
 		},
 	}
+	rawLogLevel *string
+	isDebug     = false
 )
 
 func init() {
+	root.SilenceErrors = false
 	root.InitDefaultHelpCmd()
 	root.InitDefaultVersionFlag()
 	root.SetVersionTemplate(internal.Version)
+	root.PersistentFlags().StringVarP(rawLogLevel, "log", "l", "info", "Logging level [debug, info, warn, error, none] default: info")
+	root.PersistentFlags().BoolVarP(&isDebug, "debug", "d", false, "Debug mode")
+
+	viper.BindPFlag("debug", root.PersistentFlags().Lookup("debug"))
+	viper.BindPFlag("log_level", root.PersistentFlags().Lookup("log"))
+	viper.SetDefault("log_level", "info")
+	viper.SetDefault("log_format", "{{ .Time }} [{{ .Level }}] {{ .Message }}")
+	viper.SetDefault("panic_on", "fatal")
 }
 
 func Run() {
 	if err := root.Execute(); err != nil {
-		logger.Errorf("%s", err)
+		logger.FatalF("%s", err)
 	}
 }
 
-func doCheck(cmd *cobra.Command, argv []string) error {
-	rawLevel := cmd.PersistentFlags().StringP("log", "l", "info", "Logging level [debug, info, warn, error] default: info")
-	level := logger.LevelInfo
-	if utils.AnySlice([]string{"debug", "info", "warn", "error"}, func(l string) bool { return *rawLevel == l }) {
-		level = logger.OfLevel(*rawLevel)
+func doCheck(_ *cobra.Command, argv []string) error {
+	if !utils.AnySlice([]string{"debug", "info", "warn", "error", "critical", "none"}, func(l string) bool { return strings.ToLower(*rawLogLevel) == l }) {
+		rawLogLevel = nil
 	}
-	debug := cmd.PersistentFlags().BoolP("debug", "d", false, "Debug mode")
-	if *debug {
-		level = logger.LevelDebug
-	}
+	viper.Set("log_level", rawLogLevel)
 
-	err := internal.Setup(level)
+	internal.Debug = isDebug
 
-	if !utils.AnySlice(argv, func(a string) bool { return a == "init" }) {
-		return err
+	err := internal.Setup()
+
+	if len(argv) >= 1 {
+		if argv[0] != "init" {
+			return err
+		}
 	}
 
 	return nil
