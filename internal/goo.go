@@ -1,5 +1,6 @@
 package internal
 
 var (
-	Path string
+	Path  string
+	Debug bool
 )
