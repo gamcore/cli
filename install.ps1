@@ -49,7 +49,7 @@ function InstallWindows {
     if ($WindowsArchitecture.StartsWith("64")) {
       "amd64"
     } else {
-      "arm64"
+      "386"
     }
   }
 
