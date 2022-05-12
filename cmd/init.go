@@ -1,7 +1,7 @@
 package cmd
 
 import (
-	"github.com/goo-app/cli/internal"
+	"github.com/goo-app/cli/api"
 	"github.com/spf13/cobra"
 )
 
@@ -22,5 +22,5 @@ func init() {
 }
 
 func doInit(_ *cobra.Command, _ []string) error {
-	return internal.Init(force)
+	return api.Init(force)
 }

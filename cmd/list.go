@@ -1,9 +1,9 @@
 package cmd
 
 import (
-	"github.com/goo-app/cli/internal"
-	"github.com/goo-app/cli/internal/logger"
-	"github.com/goo-app/cli/internal/utils"
+	"github.com/goo-app/cli/api"
+	"github.com/goo-app/cli/log"
+	"github.com/goo-app/cli/utils"
 	"github.com/pterm/pterm"
 	"github.com/spf13/cobra"
 )
@@ -21,21 +21,24 @@ func init() {
 }
 
 func doList(_ *cobra.Command, _ []string) {
-	apps := internal.GetInstalledApplications()
-	var data [][]string
-	utils.ForEachSlice(apps, func(app internal.Application) {
+	apps := api.Applications().Installed()
+	var data = [][]string{{"Name", "Version"}}
+	utils.ForEachSlice(apps, func(app api.App) {
 		version, _ := app.CurrentVersion()
+		if version == "" {
+			version = "???"
+		}
 		name := app.Name
 		hasUpdate, err := app.HasUpdate()
 		if err != nil {
-			logger.ErrorF(`could not obtain update information for "%s": %s`, name, err)
+			log.ErrorF(`could not obtain update information for "%s": %s`, name, err)
 		} else {
 			if hasUpdate {
-				name = pterm.Italic.Sprint(name)
+				version = pterm.Bold.Sprint(version)
 			}
 		}
 		data = append(data, []string{
-			name, *version,
+			name, version,
 		})
 	})
 	_ = pterm.DefaultTable.WithData(data).Render()

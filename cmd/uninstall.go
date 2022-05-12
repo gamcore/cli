@@ -1,7 +1,7 @@
 package cmd
 
 import (
-	"github.com/goo-app/cli/internal"
+	"github.com/goo-app/cli/api"
 	"github.com/spf13/cobra"
 )
 
@@ -18,5 +18,5 @@ func init() {
 }
 
 func doUninstall(_ *cobra.Command, argv []string) error {
-	return internal.Uninstall(argv...)
+	return api.Uninstall(argv...)
 }

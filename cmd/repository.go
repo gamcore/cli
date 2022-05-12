@@ -2,7 +2,7 @@ package cmd
 
 import (
 	"fmt"
-	"github.com/goo-app/cli/internal"
+	"github.com/goo-app/cli/api"
 	"github.com/spf13/cobra"
 	"net/url"
 )
@@ -42,10 +42,10 @@ func doAddRepo(_ *cobra.Command, argv []string) error {
 		return fmt.Errorf("second argument !!!MUST BE!!! a git repository url")
 	}
 
-	return internal.AddRepository(name, gitUrl)
+	return api.AddRepo(name, gitUrl)
 }
 
 func doDelRepo(_ *cobra.Command, argv []string) error {
 	name := argv[0]
-	return internal.RemoveRepository(name)
+	return api.RemoveRepo(name)
 }
