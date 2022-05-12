@@ -1,7 +1,7 @@
 package api
 
 import (
-	"github.com/goo-app/cli/utils"
+	"github.com/goo-app-manager/goo/utils"
 	"path"
 )
 

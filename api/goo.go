@@ -1,7 +1,7 @@
 package api
 
 import (
-	"github.com/goo-app/cli/log"
+	"github.com/goo-app-manager/goo/log"
 	"gopkg.in/yaml.v2"
 	"os"
 	"path"

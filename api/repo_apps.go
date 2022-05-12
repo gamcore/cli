@@ -6,7 +6,7 @@ import (
 	"path"
 	"strings"
 
-	"github.com/goo-app/cli/utils"
+	"github.com/goo-app-manager/goo/utils"
 )
 
 func (r Repo) Applications() Apps {

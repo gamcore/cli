@@ -2,8 +2,8 @@ package api
 
 import (
 	"encoding/json"
-	"github.com/goo-app/cli/log"
-	"github.com/goo-app/cli/utils"
+	"github.com/goo-app-manager/goo/log"
+	"github.com/goo-app-manager/goo/utils"
 	"os"
 	"path"
 	"path/filepath"

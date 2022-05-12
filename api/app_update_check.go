@@ -4,7 +4,7 @@ import (
 	"context"
 	jsonq "github.com/antchfx/jsonquery"
 	xmlq "github.com/antchfx/xmlquery"
-	"github.com/goo-app/cli/utils"
+	"github.com/goo-app-manager/goo/utils"
 	"github.com/google/go-github/v44/github"
 	"regexp"
 	"runtime"

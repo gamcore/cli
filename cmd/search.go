@@ -1,9 +1,9 @@
 package cmd
 
 import (
-	"github.com/goo-app/cli/api"
-	"github.com/goo-app/cli/log"
-	"github.com/goo-app/cli/utils"
+	"github.com/goo-app-manager/goo/api"
+	"github.com/goo-app-manager/goo/log"
+	"github.com/goo-app-manager/goo/utils"
 	"github.com/pterm/pterm"
 	"github.com/spf13/cobra"
 )

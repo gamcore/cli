@@ -1,4 +1,4 @@
-module github.com/goo-app/cli
+module github.com/goo-app-manager/goo
 
 go 1.18
 

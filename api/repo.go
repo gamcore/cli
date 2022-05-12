@@ -2,8 +2,8 @@ package api
 
 import (
 	"github.com/go-git/go-git/v5"
-	"github.com/goo-app/cli/log"
-	"github.com/goo-app/cli/utils"
+	"github.com/goo-app-manager/goo/log"
+	"github.com/goo-app-manager/goo/utils"
 	"os"
 	"path"
 	"strings"

@@ -2,7 +2,7 @@ package cmd
 
 import (
 	"fmt"
-	"github.com/goo-app/cli/api"
+	"github.com/goo-app-manager/goo/api"
 	"github.com/spf13/cobra"
 	"net/url"
 )
