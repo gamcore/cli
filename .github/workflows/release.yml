@@ -1,9 +1,12 @@
 name: Release Dispatcher
 on: workflow_dispatch
 jobs:
-  release:
-    name: Release Dispatcher
-    runs-on: ubuntu-latest
+  test:
+    name: Test Unit
+    strategy:
+      matrix:
+        os: [ ubuntu-latest, windows-latest, macos-latest ]
+    runs-on: ${{ matrix.os }}
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -13,9 +16,29 @@ jobs:
         uses: actions/setup-go@v2
         with:
           go-version: 1.18
-      - name: Download SVU
-        run: go install github.com/caarlos0/svu@latest
-      - name: Create tag
-        run: |
-          git tag $(suv next)
-          git push --tags
+      - name: Build
+        run: go build -v ./...
+      - name: Test
+        run: go test -v ./...
+  release:
+    name: Release Dispatcher
+    runs-on: ubuntu-latest
+    needs: test
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - name: Setup Go
+        uses: actions/setup-go@v2
+        with:
+          go-version: 1.18
+      - name: Setup Node
+        uses: actions/setup-node@v2
+        with:
+          node-version: 16
+      - name: Install GoReleaser
+        run: go install github.com/goreleaser/goreleaser@latest
+      - name: Create release
+        run: npx -p @semantic-release/changelog -p @semantic-release/exec -p @semantic-release/git semantic-release --ci
+

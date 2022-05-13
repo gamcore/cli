@@ -4,8 +4,7 @@ before:
     - go mod tidy
     - go generate ./...
 builds:
-  - id: goo
-    mod_timestamp: '{{ .Timestamp }}'
+  - mod_timestamp: '{{ .Timestamp }}'
     binary: 'bin/goo_{{ .Target }}'
     env:
       - CGO_ENABLED=0
@@ -14,12 +13,15 @@ builds:
       - -X github.com/goo-app/cli/internal.Version={{ .Version }}
       - -X github.com/goo-app/cli/internal.Timestamp={{ .Timestamp }}
       - -X github.com/goo-app/cli/internal.Revision={{ .ShortCommit }}
-      - -X github.com/goo-app/cli/internal.CoreRepoSlug=goo-app/package-core
-      - -X github.com/goo-app/cli/internal.ProjectRepoSlug=goo-app/cli
+      - -X github.com/goo-app/cli/internal.CoreRepoSlug=goo-app-manager/main
+      - -X github.com/goo-app/cli/internal.ProjectRepoSlug=goo-app-manager/goo
     goos:
       - linux
       - windows
       - darwin
+archives:
+  - format: binary
+    name_template: '{{ .Binary }}_{{ .Os }}_{{ .Arch }}'
 checksum:
   name_template: 'checksums.txt'
 changelog:

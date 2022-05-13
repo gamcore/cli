@@ -12,8 +12,9 @@ import (
 
 var (
 	root = &cobra.Command{
-		Use:   "goo",
-		Short: "Goo App Manager",
+		Use:     "goo",
+		Short:   "Goo App Manager",
+		Version: api.Version,
 		CompletionOptions: cobra.CompletionOptions{
 			HiddenDefaultCmd: true,
 		},

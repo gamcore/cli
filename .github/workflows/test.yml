@@ -1,6 +1,8 @@
 name: Test Unit
 on:
   push:
+    tags-ignore:
+      - "*"
     paths-ignore:
       - ".github/funding.yml"
       - ".github/workflows/releaser.yml"
@@ -12,6 +14,8 @@ on:
       - "schema.app.manifest.json"
       - "schema.repo.manifest.json"
   pull_request:
+    tags-ignore:
+      - "*"
     paths-ignore:
       - ".github/funding.yml"
       - ".github/workflows/releaser.yml"

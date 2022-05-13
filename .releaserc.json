@@ -1,0 +1,55 @@
+{
+  "preset": "angular",
+  "branches": "main",
+  "plugins": [
+    ["@semantic-release/commit-analyzer", {
+      "preset": "conventionalcommits",
+      "releaseRules": [
+        {"type": "feat", "release": "minor"},
+        {"type": "fix", "release": "patch"},
+        {"type": "refactor", "release": "patch"},
+        {"type": "perf", "release": "patch"},
+        {"type": "revert", "release": "patch"},
+        {"type": "build", "release": "patch"},
+        {"type": "deps", "release": "patch"},
+        {"type": "chore", "release": "patch"},
+        {"type": "bugfix", "release": "patch"},
+        {"scope": "skip-log", "release": false}
+      ],
+      "parserOpts": {
+        "noteKeywords": ["BREAKING CHANGE", "BREAKING CHANGES", "BREAKING"]
+      }
+    }],
+    ["@semantic-release/release-notes-generator", {
+      "preset": "conventionalcommits",
+      "presetConfig": {
+        "header": "Goo {{}}",
+        "types": [
+          {"type": "feat", "section": "Features", "hidden": false},
+          {"type": "fix", "section": "Bug Fixes", "hidden": false},
+          {"type": "refactor", "section": "Code Refactoring", "hidden": false},
+          {"type": "perf", "section": "Optimization", "hidden": false},
+          {"type": "revert", "section": "Reverts", "hidden": false},
+          {"type": "build", "section": "Build Updates", "hidden": false},
+          {"type": "deps", "section": "Dependency Updates", "hidden": false},
+          {"type": "chore", "section": "Internal Changes", "hidden": false},
+          {"type": "docs", "section": "Documentation", "hidden": true},
+          {"type": "test", "section": "Tests", "hidden": true},
+          {"type": "style", "section": "Styling", "hidden": true},
+          {"type": "ci", "section": "Continuous Integration", "hidden": true}
+        ]
+      },
+      "parserOpts": {
+        "noteKeywords": ["BREAKING CHANGE", "BREAKING CHANGES", "BREAKING"]
+      },
+      "writerOpts": {
+        "commitsSort": ["subject", "scope"]
+      }
+    }],
+    "@semantic-release/changelog",
+    "@semantic-release/git",
+    ["@semantic-release/exec", {
+      "publishCmd": "echo \"${nextRelease.notes}\" > /tmp/release-notes.md; goreleaser release --release-notes /tmp/release-notes.md --rm-dist"
+    }]
+  ]
+}
